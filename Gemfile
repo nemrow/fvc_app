@@ -14,4 +14,6 @@ end
 group :development do
   gem 'debugger'
   gem 'rspec-rails'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'faker'
 end

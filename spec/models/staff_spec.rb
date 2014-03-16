@@ -1,5 +1,14 @@
 require 'spec_helper'
 
 describe Staff do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @babysitting = FactoryGirl.create(:babysitting)
+    @staff = FactoryGirl.create(:staff)
+  end
+
+  it "should have many babysittings" do
+    babysittings_count = @staff.babysittings.count
+    @staff.babysittings << @babysitting
+    @staff.babysittings.count.should eq(babysittings_count + 1)
+  end
 end

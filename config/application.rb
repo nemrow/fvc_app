@@ -68,6 +68,7 @@ module FvcApp
     config.generators do |g|
       g.stylesheets = false
       g.javascripts = false
+      g.views = false
       g.view_specs = false
       g.helper_specs = false
       g.controller_specs = true

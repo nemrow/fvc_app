@@ -1,6 +1,6 @@
-class CreateStaff < ActiveRecord::Migration
+class CreateStaffs < ActiveRecord::Migration
   def change
-    create_table :staff do |t|
+    create_table :staffs do |t|
       t.string :name
       t.integer :login_code
       t.timestamps

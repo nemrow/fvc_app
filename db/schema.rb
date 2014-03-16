@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20140316051243) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "staff", :force => true do |t|
+  create_table "staffs", :force => true do |t|
     t.string   "name"
     t.integer  "login_code"
     t.datetime "created_at", :null => false
