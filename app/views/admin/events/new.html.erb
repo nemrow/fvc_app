@@ -1,0 +1,96 @@
+<h1>New Week <%= @week.week_num %> Events</h1>
+
+
+<%= form_for :event_instance, :url => admin_week_events_path(@week) do |ei| %>
+  <%= ei.text_field 'min_date', :class => "datepicker1" %>
+  <%= ei.text_field 'max_date', :class => "datepicker1" %>
+  <%= hidden_field_tag 'existing_event[id]', false, :id => "existing_event_id" %>
+  <%= hidden_field_tag 'existing_event[selected]', true, :id => "existing_event_selected" %>
+
+  <br>
+  <button id="event-type-toggle-button" class="open-new-event-dropdown">Create New Event</button>
+  <br>
+
+  <div id="existing-events-dropdown">
+    <p>Existing Events</p>
+    <select id="existing-events-selector">
+      <option value="false">Select Existing Event</option> 
+      <% @existing_events.each do |ee| %>
+        <option value="<%= ee.id %>"><%= ee.title %></option> 
+      <% end %>
+    </select>
+  </div>
+
+
+  <div id="new-event-dropdown" class="new-event-dropdown">
+    <p>New Event</p>
+    <%= fields_for :event do |e| %>
+      <%= e.text_field 'title', :placeholder => "Event Title" %><br>
+      <%= e.text_area 'description', :placeholder => "Description" %><br>
+    <% end %>
+  </div>
+
+  <%= ei.submit "Add Event" %>
+<% end %>
+
+
+<script type="text/javascript">
+  var Model = {
+    eventSelectionType: "existing"
+  } 
+  var Controller = {
+    openNewEvent: function () {
+
+    }
+  }
+  var View = {
+    newEventDropDown: $('#new-event-dropdown'),
+
+    existingEventsDropdown: $('#existing-events-dropdown'),
+
+    eventTypeButton: $('#event-type-toggle-button'),
+
+    existingEventId: $('#existing_event_id'),
+
+    existingEventBoolean: $('#existing_event_selected'),
+
+    existingEventSelectedId: $('#existing-events-selector').val(),
+
+    showNewEventDropDown: function () {
+      View.existingEventsDropdown.hide();
+      View.newEventDropDown.show();
+    },
+
+    showExistingEventsDropdown: function () {
+      View.newEventDropDown.hide();
+      View.existingEventsDropdown.show();
+    }
+  }
+
+  $(document).ready(function(){
+    $('.datepicker1').datetimepicker({
+      timeFormat: "hh:mm tt",
+      minDate: new Date(<%= @week.min_date.js_date_format %>),
+      maxDate: new Date(<%= @week.max_date.js_date_format %>)
+    });
+
+    $('#event-type-toggle-button').click(function(e){
+      e.preventDefault();
+      if (Model.eventSelectionType == "existing") {
+        Model.eventSelectionType = "new";
+        View.showNewEventDropDown();
+        View.existingEventBoolean.val('false');
+        View.eventTypeButton.text("Choose Existing Event");
+      } else {
+        Model.eventSelectionType = "existing";
+        View.showExistingEventsDropdown();
+        View.existingEventBoolean.val('true');
+        View.eventTypeButton.text("Create New Event");
+      }
+    });
+
+    $('#existing-events-selector').change(function(){
+      View.existingEventId.val($(this).val());
+    });
+  });
+</script>

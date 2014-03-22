@@ -1,0 +1,17 @@
+<h1>Week <%= @week.week_num %> Events</h1>
+<p><%= @week.min_date.day_formatted %> - <%= @week.max_date.day_formatted %></p>
+<%= link_to "New Event", new_admin_week_event_path(@week) %>
+
+<% @event_instances.each do |ei| %>
+
+  <h2><%= ei[:day_of_week] %></h2>
+
+  <% ei[:events].each do |event| %>
+
+    <p><%= event.event.title %></p>
+    <p><%= event.event.description %></p>
+    <p><%= event.min_date.time_formatted %></p>
+    <hr>
+
+  <% end %>
+<% end %>

@@ -1,6 +1,8 @@
 require 'csv'
 
 class BuildRoster
+  FIRST_MIN_DATE = DateTime.new(2014, 6, 21, 12, 0)
+  FIRST_MAX_DATE = DateTime.new(2014, 6, 28, 12, 0)
 
   def initialize
     @roster_files = csv_files
@@ -18,11 +20,22 @@ class BuildRoster
   end
 
   def build_roster_for_single_week(file, week_num)
-    week = Week.create(:week_num => week_num)
+    week = create_week(week_num)
     CSV.foreach(file) do |family_data|
       family = create_family(family_data)
       family.weeks << week
     end
+  end
+
+  def create_week(week_num)
+    week_index = (week_num - 1)
+    min_date = FIRST_MIN_DATE + (7 * week_index).days
+    max_date = FIRST_MAX_DATE + (7 * week_index).days
+    Week.create(
+      :week_num => week_num,
+      :min_date => min_date,
+      :max_date => max_date
+    )
   end
 
   def create_family(family_data)
@@ -35,7 +48,7 @@ class BuildRoster
 
   def extract_week_num_from_file(file)
     begin
-      file.match(/family_roster_week_(\d+)/)[1]
+      file.match(/family_roster_week_(\d+)/)[1].to_i
     rescue
       puts "File '#{file}' does not follow naming conventions"
       puts "Needs to be like this: 'family_roster_week_1'"

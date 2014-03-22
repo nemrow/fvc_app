@@ -8,7 +8,9 @@ FactoryGirl.define do
   end
 
   factory :week do
-    week_num Random.rand(1..9)
+    week_num Random.rand(1)
+    min_date Time.new(2014, 5, 21, 12, 0)
+    max_date Time.new(2014, 5, 28, 12, 0)
   end
 
   factory :babysitting do
@@ -23,7 +25,8 @@ FactoryGirl.define do
   end
 
   factory :event_instance do
-    date Time.now
+    min_date Time.now
+    max_date Time.now
   end
 
   factory :event do 

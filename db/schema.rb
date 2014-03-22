@@ -13,27 +13,28 @@
 
 ActiveRecord::Schema.define(:version => 20140316051243) do
 
-  create_table "admins", :force => true do |t|
+  create_table "babysittings", :force => true do |t|
+    t.integer  "family_id"
+    t.string   "status"
+    t.datetime "begin_date"
+    t.datetime "end_date"
+    t.integer  "staff_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "bosses", :force => true do |t|
     t.string   "name"
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
 
-  create_table "babysittings", :force => true do |t|
-    t.integer  "family_id"
-    t.string   "status"
-    t.date     "begin_date"
-    t.date     "end_date"
-    t.integer  "staff_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "event_instances", :force => true do |t|
     t.integer  "event_id"
     t.integer  "week_id"
-    t.date     "date"
+    t.datetime "min_date"
+    t.datetime "max_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -69,8 +70,8 @@ ActiveRecord::Schema.define(:version => 20140316051243) do
 
   create_table "weeks", :force => true do |t|
     t.integer  "week_num"
-    t.date     "begin_date"
-    t.date     "end_date"
+    t.datetime "min_date"
+    t.datetime "max_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
