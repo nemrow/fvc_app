@@ -1,9 +1,9 @@
-class Admin
+module Admin
   class EventsController < ApplicationController
     def index
       @week = Week.find(params[:week_id])
       # @event_instances = @week.event_instances.includes(:event)
-      @event_instances = EventInstance.week_events_sorted(@week.week_num)
+      @event_instances = Schedule.week_events_sorted(@week.week_num)
     end
 
     def new

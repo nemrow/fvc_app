@@ -1,8 +1,9 @@
 require 'csv'
+require 'debugger'
 
 class BuildRoster
-  FIRST_MIN_DATE = DateTime.new(2014, 6, 21, 12, 0)
-  FIRST_MAX_DATE = DateTime.new(2014, 6, 28, 12, 0)
+  FIRST_MIN_DATE = DateTime.new(2014, 3, 22, 12, 0) # DateTime.new(2014, 6, 21, 12, 0)
+  FIRST_MAX_DATE = DateTime.new(2014, 3, 29, 12, 0) # DateTime.new(2014, 6, 28, 12, 0)
 
   def initialize
     @roster_files = csv_files
