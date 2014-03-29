@@ -20,7 +20,8 @@ module Api
           schedule = Schedule.week_events_sorted(current_week)
           json = {
             :success => true,
-            :schedule => schedule
+            :schedule => schedule,
+            :events => Event.all
           }
           render :json => json
         else

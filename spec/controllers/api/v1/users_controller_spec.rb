@@ -28,6 +28,9 @@ describe Api::V1::UsersController do
     before(:each) do
       create_current_week
       @family = FactoryGirl.create(:family)
+      10.times do
+        FactoryGirl.create(:event)
+      end
     end
 
     it "should return schedule" do
@@ -35,6 +38,13 @@ describe Api::V1::UsersController do
       result = JSON.parse(response.body)
       result['success'].should eq(true)
       result['schedule'].count.should eq(8)
+    end
+
+    it "should return events" do
+      get :load_data, :login_code => @family.login_code
+      result = JSON.parse(response.body)
+      result['success'].should eq(true)
+      result['events'].count.should eq(10)
     end
   end
 end
