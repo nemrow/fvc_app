@@ -1,0 +1,8 @@
+<h1>Babysitting for week <%= @week.week_num %></h1>
+
+
+
+<% @week_days.each do |day| %>
+  <%= link_to day.day_formatted, admin_week_single_day_babysiting_path(@week, :date => day) %><br>
+<% end %>
+

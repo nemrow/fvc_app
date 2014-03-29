@@ -14,8 +14,8 @@ FactoryGirl.define do
   end
 
   factory :babysitting do
-    begin_date Time.now
-    end_date Time.now
+    min_date Time.now
+    max_date Time.now
     status "pending"
   end
 

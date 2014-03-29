@@ -1,0 +1,5 @@
+
+<% @babysittings.each do |babysitting| %>
+  <p><%= babysitting.family.last_name %> (room <%= babysitting.family.room_num %>)</p>
+  <p><%= babysitting.min_date.time_formatted %> - <%= babysitting.max_date.time_formatted %></p>
+<% end %>

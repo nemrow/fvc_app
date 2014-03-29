@@ -11,16 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140316051243) do
+ActiveRecord::Schema.define(:version => 20140329202916) do
+
+  create_table "babysitting_timeslots", :force => true do |t|
+    t.time     "time_slot"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "babysittings", :force => true do |t|
     t.integer  "family_id"
-    t.string   "status"
-    t.datetime "begin_date"
-    t.datetime "end_date"
+    t.integer  "week_id"
+    t.string   "status",     :default => "pending", :null => false
+    t.datetime "min_date"
+    t.datetime "max_date"
     t.integer  "staff_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "bosses", :force => true do |t|
